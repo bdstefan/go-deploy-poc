@@ -4,10 +4,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Prime numbers up to %s.", r.URL.Path[1:])
+	n, _ := strconv.Atoi(r.URL.Path[1:])
+	fmt.Fprintln(w, "Compute power for all ints up to", n)
+	compute(n, w)
 }
 
 func main() {
