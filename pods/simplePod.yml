@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gopoc
+  labels:
+    app: gopoc
+spec:
+  containers:
+  - name: gopoc
+    image: go-deploy-poc
