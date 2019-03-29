@@ -7,5 +7,8 @@ A demo app developed with Golang and deployed with Docker + Kubernetes
 3. docker rm gopoc
 4. docker run --name gopoc -d -p 3030:3030 go-deploy-poc
 
-### How to debug inside a runnign container:
+### How to debug inside a running container:
 1. docker exec -i -t gopoc /bin/sh
+
+#### Others
+In order to deploy it to Kubernetes, you need to install Minikube: https://kubernetes.io/docs/tasks/tools/install-minikube/#install-a-hypervisor
