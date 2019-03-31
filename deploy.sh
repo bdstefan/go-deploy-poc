@@ -2,6 +2,7 @@
 
 docker build -t go-deploy-poc .
 readonly CONTAINER_NAME="gopoc"
+readonly EXPOSE_PORT=3030
 
 if [[ $(docker ps -a | grep ${CONTAINER_NAME} | wc -l) -eq 1 ]]; 
 then
@@ -10,4 +11,6 @@ then
     docker rm ${CONTAINER_NAME}
 fi
 
-docker run --name ${CONTAINER_NAME} -d -p 3030:3030 go-deploy-poc
+docker run --name ${CONTAINER_NAME} -d -p ${EXPOSE_PORT}:3030 go-deploy-poc
+
+echo "The app is available at http://localhost:${EXPOSE_PORT}/10#change-up-limit-here"
