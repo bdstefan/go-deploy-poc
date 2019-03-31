@@ -13,7 +13,13 @@ func indexHnalder(w http.ResponseWriter, r *http.Request) {
 	compute(n, w)
 }
 
+func livenessHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "The app is up and running! :)")
+}
+
 func main() {
 	http.HandleFunc("/", indexHnalder)
+	http.HandleFunc("/liveness", livenessHandler)
+
 	log.Fatal(http.ListenAndServe(":3030", nil))
 }
