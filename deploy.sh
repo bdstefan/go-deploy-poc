@@ -13,4 +13,4 @@ fi
 
 docker run --name ${CONTAINER_NAME} -d -p ${EXPOSE_PORT}:3030 go-deploy-poc
 
-echo "The app is available at http://localhost:${EXPOSE_PORT}/10#change-up-limit-here"
+echo "The app is available at http://localhost:${EXPOSE_PORT}/liveness"
