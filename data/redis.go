@@ -15,3 +15,8 @@ var redisClient = redis.NewClient(&redis.Options{
 	Addr: redisAddress,
 	DB:   redisDb,
 })
+
+//GetRedisClient provide an instace of redis
+func GetRedisClient() *redis.Client {
+	return redisClient
+}
