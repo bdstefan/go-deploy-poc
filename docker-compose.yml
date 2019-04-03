@@ -6,6 +6,7 @@ services:
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6378
+      - REDIS_DB=1
     ports:
       - "3030:3030"
     networks:

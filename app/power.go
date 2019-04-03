@@ -20,6 +20,10 @@ func publish(n int) {
 
 func computePower(n int, exp int) {
 	value := math.Pow(float64(n), float64(exp))
+	key := fmt.Sprintf("%v:%v", n, exp)
+
+	redis.Set(key, value, 300)
+
 	computeChan <- fmt.Sprintf("%v ^ %v = %v", n, exp, value)
 }
 
