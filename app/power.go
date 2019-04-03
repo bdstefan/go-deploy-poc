@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"go-deploy-poc/nosql"
 	"math"
 	"net/http"
 )
@@ -9,6 +10,7 @@ import (
 const exp = 2
 
 var computeChan = make(chan string)
+var redis = nosql.GetRedisClient()
 
 func publish(n int) {
 	for i := 2; i <= n; i++ {
