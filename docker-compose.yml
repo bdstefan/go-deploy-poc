@@ -1,0 +1,7 @@
+version: "3.3"
+services:
+  app:
+    container_name: "gopoc"
+    build: "./app"
+    ports:
+      - "3030:3030"
