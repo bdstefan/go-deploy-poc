@@ -5,6 +5,7 @@ services:
     build: "./app"
     environment:
       - REDIS_HOST=redis
+      - REDIS_PORT=6379
     ports:
       - "3030:3030"
     networks:
@@ -14,10 +15,13 @@ services:
 
   redis:
     image: redis:4.0.5-alpine
+    container_name: "gopoc_redis"
     command: ["redis-server", "--appendonly", "yes"]
     hostname: redis
     networks:
       - redis-net
+    ports:
+      - "6379:6379"
     volumes:
       - redis-data:/data
 
