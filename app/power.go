@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"math"
 	"net/http"
+
+	_ "./data/redis"
 )
 
 const exp = 2
