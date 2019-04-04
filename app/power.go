@@ -45,8 +45,7 @@ func displayOutput(n int, w http.ResponseWriter) {
 
 func compute(n int, w http.ResponseWriter) {
 	if logErr != nil {
-		log.Panic("Log file couldn't be opened.")
-		os.Exit(1)
+		panic("Log file couldn't be opened.")
 	}
 
 	log.SetOutput(logFile)
