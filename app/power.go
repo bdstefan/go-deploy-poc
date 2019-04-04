@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"go-deploy-poc/nosql"
 	"math"
 	"net/http"
+
+	"github.com/bdstefan/go-deploy-poc/nosql"
 )
 
 const exp = 2

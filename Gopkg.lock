@@ -2,6 +2,14 @@
 
 
 [[projects]]
+  branch = "master"
+  digest = "1:6a9c1891b22e16bf73a5cf4b608fdd0a55fc75f5ee1be1447234c53256087a0a"
+  name = "github.com/bdstefan/go-deploy-poc"
+  packages = ["nosql"]
+  pruneopts = "UT"
+  revision = "c939d00ef0549322c8067486162255878ca45b36"
+
+[[projects]]
   digest = "1:33082c63746b464db3d1c2c07a1396d860484d97fe857ef9e8668a9b406db09f"
   name = "github.com/go-redis/redis"
   packages = [
@@ -20,6 +28,9 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = ["github.com/go-redis/redis"]
+  input-imports = [
+    "github.com/bdstefan/go-deploy-poc/nosql",
+    "github.com/go-redis/redis",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1
