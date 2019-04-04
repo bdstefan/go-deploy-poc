@@ -14,7 +14,7 @@ const exp = 5
 
 var computeChan = make(chan string)
 var redis = nosql.GetRedisClient()
-var logFile, _ = os.OpenFile("logs", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+var logFile, logErr = os.OpenFile("logs", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 
 func publish(n int) {
 	for i := 2; i <= n; i++ {
@@ -44,6 +44,11 @@ func displayOutput(n int, w http.ResponseWriter) {
 }
 
 func compute(n int, w http.ResponseWriter) {
+	if logErr != nil {
+		log.Panic("Log file couldn't be opened.")
+		os.Exit(1)
+	}
+
 	log.SetOutput(logFile)
 	publish(n)
 	displayOutput(n, w)
