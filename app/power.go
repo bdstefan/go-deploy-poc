@@ -6,6 +6,7 @@ import (
 	"math"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/bdstefan/go-deploy-poc/nosql"
 )
@@ -23,14 +24,13 @@ func publish(n int) {
 }
 
 func computePower(n int, exp int) {
-	value := int(math.Pow(float64(n), float64(exp)))
 	key := fmt.Sprintf("%v:%v", n, exp)
+	rValue, _ := redis.Get(key).Result()
+	value, _ := strconv.Atoi(rValue)
 
-	if redis.Ping() != nil {
-		log.Println("Saved to redis ", key, value)
-		redis.Set(key, value, 30000)
-	} else {
-		os.Exit(255)
+	if value == 0 {
+		value = int(math.Pow(float64(n), float64(exp)))
+		log.Println(redis.Set(key, value, 0))
 	}
 
 	computeChan <- fmt.Sprintf("%v ^ %v = %v", n, exp, value)
