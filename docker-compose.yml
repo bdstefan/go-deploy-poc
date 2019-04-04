@@ -19,7 +19,7 @@ services:
   redis:
     image: redis:4.0.5-alpine
     container_name: "gopoc_redis"
-    command: ["redis-server", "--appendonly", "yes"]
+    command: ["redis-server"]
     hostname: redis
     networks:
       - redis-net
