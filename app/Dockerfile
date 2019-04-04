@@ -18,7 +18,7 @@ RUN mkdir $GOPATH/src
 RUN mkdir $GOPATH/pkg
 RUN mkdir $GOPATH/src/app
 
-ENV APP_DIR=${GOPATH}/src/app
+ENV APP_DIR=$GOPATH/src/app
 
 #RUN ls $(go env GOROOT)/pkg && chown -R $USER $(go env GOROOT)/pkg
 
