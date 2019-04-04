@@ -11,7 +11,7 @@ import (
 	"github.com/bdstefan/go-deploy-poc/nosql"
 )
 
-const exp = 5
+const exp = 2
 
 var computeChan = make(chan string)
 var redis = nosql.GetRedisClient()
