@@ -11,13 +11,11 @@ import (
 	"github.com/bdstefan/go-deploy-poc/nosql"
 )
 
-const exp = 2
-
 var computeChan = make(chan string)
 var redis = nosql.GetRedisClient()
 var logFile, logErr = os.OpenFile("logs", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 
-func publish(n int) {
+func publish(n int, exp int) {
 	for i := 2; i <= n; i++ {
 		go computePower(i, exp)
 	}
@@ -43,12 +41,12 @@ func displayOutput(n int, w http.ResponseWriter) {
 	}
 }
 
-func compute(n int, w http.ResponseWriter) {
+func compute(n int, exp int, w http.ResponseWriter) {
 	if logErr != nil {
 		panic("Log file couldn't be opened.")
 	}
 
 	log.SetOutput(logFile)
-	publish(n)
+	publish(n, exp)
 	displayOutput(n, w)
 }
