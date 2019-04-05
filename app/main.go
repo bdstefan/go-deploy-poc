@@ -32,11 +32,6 @@ func livenessHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "The app is up and running! :)")
 }
 
-func apiListHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "All powers computed and stored in Redis")
-	retreiveNumbers(w)
-}
-
 func main() {
 	r.HandleFunc("/power/{number}/{exp}", powerHandler).Methods("GET")
 	r.HandleFunc("/liveness", livenessHandler).Methods("GET")

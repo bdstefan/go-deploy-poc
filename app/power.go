@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"math"
 	"net/http"
 	"os"
 	"strconv"
@@ -17,21 +16,21 @@ var logFile, logErr = os.OpenFile("logs", os.O_RDWR|os.O_CREATE|os.O_APPEND, 066
 
 func publish(n int, exp int) {
 	for i := 2; i <= n; i++ {
-		go computePower(i, exp)
+		go computePower(Exponent{base: i, exponent: exp})
 	}
 }
 
-func computePower(n int, exp int) {
-	key := fmt.Sprintf("%v:%v", n, exp)
+func computePower(e Exponent) {
+	key := fmt.Sprintf("%v:%v", e.base, e.exponent)
 	rValue, _ := redis.Get(key).Result()
 	value, _ := strconv.Atoi(rValue)
 
 	if value == 0 {
-		value = int(math.Pow(float64(n), float64(exp)))
+		value = e.power()
 		log.Println(redis.Set(key, value, 0))
 	}
 
-	computeChan <- fmt.Sprintf("%v ^ %v = %v", n, exp, value)
+	computeChan <- fmt.Sprintf("%v ^ %v = %v", e.base, e.exponent, value)
 }
 
 func displayOutput(n int, w http.ResponseWriter) {
@@ -47,6 +46,7 @@ func compute(n int, exp int, w http.ResponseWriter) {
 	}
 
 	log.SetOutput(logFile)
+
 	publish(n, exp)
 	displayOutput(n, w)
 }
