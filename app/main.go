@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-	"strings"
 
 	"github.com/gorilla/mux"
 )
@@ -13,8 +12,8 @@ import (
 var r = mux.NewRouter()
 
 func powerHandler(w http.ResponseWriter, r *http.Request) {
-	s := strings.Split(r.URL.Path, "/")
-	n, err := strconv.Atoi(s[2])
+	params := mux.Vars(r)
+	n, err := strconv.Atoi(params["number"])
 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -37,11 +36,8 @@ func apiListHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	//http.HandleFunc("/power/", powerHandler)
-	//http.HandleFunc("/liveness", livenessHandler)
-	//http.HandleFunc("/api/list", apiListHandler)
-
-	//log.Fatal(http.ListenAndServe(":3030", nil))
+	r.HandleFunc("/power/{number}", powerHandler).Methods("GET")
+	r.HandleFunc("/liveness", livenessHandler).Methods("GET")
 
 	s := http.Server{
 		Addr:    ":3030",
