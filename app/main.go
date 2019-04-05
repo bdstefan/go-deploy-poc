@@ -6,7 +6,11 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+
+	"github.com/gorilla/mux"
 )
+
+var r = mux.NewRouter()
 
 func powerHandler(w http.ResponseWriter, r *http.Request) {
 	s := strings.Split(r.URL.Path, "/")
@@ -33,9 +37,16 @@ func apiListHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/power/", powerHandler)
-	http.HandleFunc("/liveness", livenessHandler)
-	http.HandleFunc("/api/list", apiListHandler)
+	//http.HandleFunc("/power/", powerHandler)
+	//http.HandleFunc("/liveness", livenessHandler)
+	//http.HandleFunc("/api/list", apiListHandler)
 
-	log.Fatal(http.ListenAndServe(":3030", nil))
+	//log.Fatal(http.ListenAndServe(":3030", nil))
+
+	s := http.Server{
+		Addr:    ":3030",
+		Handler: r,
+	}
+
+	log.Fatal(s.ListenAndServe())
 }
